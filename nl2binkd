@@ -219,6 +219,21 @@ awk -v binkd_nl="$BINKP_NL" -v domain="$DOMAIN" '
             }
           }
         }
+        if (data[i] ~ /^ON2/)
+        {
+          # save Onion address if available
+          n = length(data[i]);
+          if (n == 20)
+          {
+            test = get_value(substr(data[i] ".onion", 5), "addr")
+            if (test != "")
+            {
+              run_flag = "TRUE"
+              count++;
+              ip_addr[count] = test
+            }
+          }
+        }
       }
     }
 
